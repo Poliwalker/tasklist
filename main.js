@@ -16,12 +16,20 @@ const saveLocalStorage = (tasksList) => {
 
 const createTask = (task) =>
 	`<li>${task.name}<img class='delete-btn' src='/829079.png' 
-     data-id=${task.taskId}/></li>`;
+     data-id = ${task.taskId}></li>`;
 
 // crear la logica para renderizar tareas
 
 const renderTasksList = (todoList) => {
 	tasksList.innerHTML = todoList.map((task) => createTask(task)).join('');
+};
+
+const hideDeleteAll = (taskList) => {
+	if (!taskList.length) {
+		deleteBtn.classList.add('hidden');
+		return;
+	}
+	deleteBtn.classList.remove('hidden');
 };
 
 // funcion para agregar tareas
@@ -45,11 +53,31 @@ const addTask = (e) => {
 	input.value = '';
 	renderTasksList(tasks);
 	saveLocalStorage(tasks);
+	hideDeleteAll(tasks);
+};
+
+const removeTask = (e) => {
+	if (!e.target.classList.contains('delete-btn')) return;
+	const filterId = Number(e.target.dataset.id);
+	tasks = tasks.filter((task) => task.taskId !== filterId);
+	renderTasksList(tasks);
+	saveLocalStorage(tasks);
+	hideDeleteAll(tasks);
+};
+
+const removeAll = () => {
+	tasks = [];
+	renderTasksList(tasks);
+	saveLocalStorage(tasks);
+	hideDeleteAll(tasks);
 };
 
 // funcion para iniciar las tareas apretando el boton
 const init = () => {
 	renderTasksList(tasks);
 	addForm.addEventListener('submit', addTask);
+	tasksList.addEventListener('click', removeTask);
+	deleteBtn.addEventListener('click', removeAll);
+	hideDeleteAll(tasks);
 };
 init();
