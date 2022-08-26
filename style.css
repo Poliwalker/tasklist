@@ -172,4 +172,8 @@ body {
 	.add-btn {
 		padding: 10px 20px;
 	}
+
+	.tasks-list li {
+		justify-content: space-around;
+	}
 }
