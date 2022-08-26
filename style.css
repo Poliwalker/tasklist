@@ -163,7 +163,6 @@ body {
 	.add-form {
 		flex-direction: column;
 		gap: 30px;
-		width: 100%;
 	}
 
 	.logo {
@@ -172,13 +171,5 @@ body {
 
 	.add-btn {
 		padding: 10px 20px;
-	}
-	/* 
-	.delete-btn {
-		width: 80%;
-	} */
-
-	.tasks-list li {
-		justify-content: center;
 	}
 }
